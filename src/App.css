@@ -1,0 +1,29 @@
+main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 95vh;
+  background-color: lightgray;
+}
+
+table, tr {
+  border: 5px solid;
+  border-collapse: collapse;
+  width: 40vh;
+  align-items: center;
+}
+
+td  {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: gray;
+}
