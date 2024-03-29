@@ -35,6 +35,8 @@ function Screen() {
 
   function playGreen() {
     if (frets[frets.length - 1] === true) {
+      frets[frets.length - 1] = false;
+      setFrets([...frets]);
       setScore(() => score + 1);
 
       if (score >= maxScore) {
