@@ -27,15 +27,22 @@ function Screen() {
   const [maxScore, setMaxScore] = useState(0);
 
   function nextFrame() {
-    var random_boolean = Math.random() < 0.3;
-    frets.pop();
-    frets.unshift(random_boolean);
-    setFrets([...frets]);
+    var random_boolean = Math.random() < 0.7;
+    //var last_note = frets.pop();
+    var last_note = frets.pop();
+    if (last_note === true) {
+      setScore(0);
+    }
+
+    setFrets([random_boolean, ...frets]);
   }
 
   function playGreen() {
-    if (frets[frets.length - 1] === true) {
-      frets[frets.length - 1] = false;
+    console.log(frets);
+    if (frets[frets.length - 2] === true) {
+      console.log(frets);
+      frets[frets.length - 2] = false;
+      console.log(frets);
       setFrets([...frets]);
       setScore(() => score + 1);
 
@@ -47,13 +54,13 @@ function Screen() {
     }
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextFrame();
-    }, 500);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     nextFrame();
+  //   }, 1500);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div>
@@ -62,15 +69,15 @@ function Screen() {
           {frets.map((fret, index) => (
             <Fret
               active={fret}
-              button={index === frets.length - 1}
+              button={index === frets.length - 2}
               playGreen={playGreen}
             />
           ))}
-          {/* <tr>
-          <td>
-            <button onClick={nextFrame}>Move forward in time</button>
-          </td>
-        </tr> */}
+          <tr>
+            <td>
+              <button onClick={nextFrame}>Move forward in time</button>
+            </td>
+          </tr>
         </tbody>
       </table>
       <p>Score: {score}</p>
