@@ -1,22 +1,14 @@
 import "./App.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function Fret({ active, button = false, playGreen }) {
   const class_name = active ? "active" : "inactive";
 
-  if (button === true) {
-    return (
-      <tr>
-        <td className={class_name}>
-          <button onClick={playGreen}>Play!</button>
-        </td>
-      </tr>
-    );
-  }
-
   return (
     <tr>
-      <td className={class_name}></td>
+      <td className={class_name}>
+        {button && <button onClick={playGreen}>Play!</button>}
+      </td>
     </tr>
   );
 }
@@ -26,15 +18,32 @@ function Screen() {
   const [score, setScore] = useState(0);
   const [maxScore, setMaxScore] = useState(0);
 
+  const buttonPos = frets.length - 2;
+  
   function nextFrame() {
-    var random_boolean = Math.random() < 0.3;
-    frets.pop();
-    frets.unshift(random_boolean);
-    setFrets([...frets]);
+
+    setFrets((prevData) => {
+      const newFrets = [Math.random() < 0.3, ...prevData.slice(0, -1)];
+
+      if (newFrets[newFrets.length - 1] === true) {
+        setScore(0);
+      }
+      
+      return newFrets;});
+
   }
 
   function playGreen() {
-    if (frets[frets.length - 1] === true) {
+    if (frets[buttonPos] === true) {
+      const nextFrets = frets.map((f, i) => {
+        if (i === buttonPos) {
+          return false;
+        } else {
+          return f;
+        }
+      });
+
+      setFrets(nextFrets);
       setScore(() => score + 1);
 
       if (score >= maxScore) {
@@ -46,11 +55,9 @@ function Screen() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      nextFrame();
-    }, 500);
+    const intervalId = setInterval(nextFrame, 250);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -60,19 +67,20 @@ function Screen() {
           {frets.map((fret, index) => (
             <Fret
               active={fret}
-              button={index === frets.length - 1}
+              button={index === buttonPos}
               playGreen={playGreen}
             />
           ))}
           {/* <tr>
-          <td>
-            <button onClick={nextFrame}>Move forward in time</button>
-          </td>
-        </tr> */}
+            <td>
+              <button onClick={nextFrame}>Move forward in time</button>
+            </td>
+          </tr> */}
         </tbody>
       </table>
       <p>Score: {score}</p>
       <p>Max Score: {maxScore}</p>
+      {/* <p>Shifting State List: {frets.map(item => item ? 'T ' : 'F ').join('')}</p> */}
     </div>
   );
 }
