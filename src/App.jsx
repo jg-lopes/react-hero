@@ -2,11 +2,9 @@ import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 
 // TODO
-// 1. Unify score across all Fretboards
-// 2. Beautify button
-// 3. Add a common thread generation to avoid creating 2 of the same fret
-// 4. Add a two/three space hit window
-// 5. Add a difficulty slider
+// 1. Add a common thread generation to avoid creating 2 of the same fret
+// 2. Add a two/three space hit window
+// 3. Add a difficulty slider
 
 function Fret({ active, button = false, playGreen, color }) {
   const buttonColor = active ? color : "gray";
@@ -23,10 +21,10 @@ function Fret({ active, button = false, playGreen, color }) {
   );
 }
 
-function Fretboard({ color }) {
+function Fretboard({ color, setScore, setMaxScore, score, maxScore }) {
   const [frets, setFrets] = useState(Array(10).fill(false));
-  const [score, setScore] = useState(0);
-  const [maxScore, setMaxScore] = useState(0);
+  // const [score, setScore] = useState(0);
+  // const [maxScore, setMaxScore] = useState(0);
 
   const buttonPos = frets.length - 2;
 
@@ -88,29 +86,53 @@ function Fretboard({ color }) {
           </tr> */}
         </tbody>
       </table>
-      <p>Score: {score}</p>
-      <p>Max Score: {maxScore}</p>
+      {/* <p>Score: {score}</p>
+      <p>Max Score: {maxScore}</p> */}
       {/* <p>Shifting State List: {frets.map(item => item ? 'T ' : 'F ').join('')}</p> */}
     </div>
   );
+}
+
+function Game() {
+  const [score, setScore] = useState(0);
+  const [maxScore, setMaxScore] = useState(0);
+
+  return (
+    <div class='display'>
+      <div class='results'>
+        <p>Tap anywhere to play the frets!</p>
+        <p>Score: {score} - Max Score: {maxScore}</p>
+      </div>
+      <div class='game'>
+        <Fretboard color="green" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        <Fretboard color="red" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        <Fretboard color="yellow" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        <Fretboard color="blue" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        <Fretboard color="orange" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+      </div>
+
+      <div class='results'>
+        <p>Tap anywhere to play the frets!</p>
+        <p>Score: {score} - Max Score: {maxScore}</p>
+      </div>
+    </div>
+  )
 }
 
 export default function App() {
   return (
     <main>
       <div class='introtext'>
-      <h1>Score Hero!</h1>
-        </div>
-      <div class='introtext'>
-      <p>Tap anywhere to play the frets!</p>
+        <h1>Score Hero!</h1>
       </div>
-      <div class='game'>
+      {/* <div class='game'>
         <Fretboard color="green" />
         <Fretboard color="red" />
         <Fretboard color="yellow" />
         <Fretboard color="blue" />
         <Fretboard color="orange" />
-      </div>
+      </div> */}
+      <Game />
     </main>
   );
 }
