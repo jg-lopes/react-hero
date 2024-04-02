@@ -20,8 +20,24 @@ td  {
   justify-content: center;
 }
 
-.active {
+.green {
   background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
+.yellow {
+  background-color: yellow
+}
+
+.blue {
+  background-color: blue
+}
+
+.orange {
+  background-color: orange
 }
 
 .inactive {

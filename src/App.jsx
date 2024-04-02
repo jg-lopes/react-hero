@@ -1,8 +1,8 @@
 import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 
-function Fret({ active, button = false, playGreen }) {
-  const class_name = active ? "active" : "inactive";
+function Fret({ active, button = false, playGreen, color }) {
+  const class_name = active ? color : "inactive";
 
   return (
     <tr>
@@ -13,24 +13,23 @@ function Fret({ active, button = false, playGreen }) {
   );
 }
 
-function Screen() {
+function Screen({ color }) {
   const [frets, setFrets] = useState([true, false, false, false, false]);
   const [score, setScore] = useState(0);
   const [maxScore, setMaxScore] = useState(0);
 
   const buttonPos = frets.length - 2;
-  
-  function nextFrame() {
 
+  function nextFrame() {
     setFrets((prevData) => {
       const newFrets = [Math.random() < 0.3, ...prevData.slice(0, -1)];
 
       if (newFrets[newFrets.length - 1] === true) {
         setScore(0);
       }
-      
-      return newFrets;});
 
+      return newFrets;
+    });
   }
 
   function playGreen() {
@@ -68,6 +67,7 @@ function Screen() {
             <Fret
               active={fret}
               button={index === buttonPos}
+              color={color}
               playGreen={playGreen}
             />
           ))}
@@ -88,7 +88,11 @@ function Screen() {
 export default function App() {
   return (
     <main>
-      <Screen />
+      <Screen color="green" />
+      <Screen color="red" />
+      <Screen color="yellow" />
+      {/* <Screen color="blue" />
+      <Screen color="orange" /> */}
     </main>
   );
 }
