@@ -30,7 +30,7 @@ function Fretboard({ color, setScore, setMaxScore, score, maxScore }) {
 
   function nextFrame() {
     setFrets((prevData) => {
-      const newFrets = [Math.random() < 0.05, ...prevData.slice(0, -1)];
+      const newFrets = [Math.random() < 0.1, ...prevData.slice(0, -1)];
 
       if (newFrets[newFrets.length - 1] === true) {
         setScore(0);
@@ -62,7 +62,7 @@ function Fretboard({ color, setScore, setMaxScore, score, maxScore }) {
   }
 
   useEffect(() => {
-    const intervalId = setInterval(nextFrame, 500);
+    const intervalId = setInterval(nextFrame, 350);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -107,8 +107,8 @@ function Game() {
         <Fretboard color="green" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
         <Fretboard color="red" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
         <Fretboard color="yellow" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
-        <Fretboard color="blue" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
-        <Fretboard color="orange" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        {/* <Fretboard color="blue" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} />
+        <Fretboard color="orange" setScore={setScore} setMaxScore={setMaxScore} score={score} maxScore={maxScore} /> */}
       </div>
 
       <div class='results'>

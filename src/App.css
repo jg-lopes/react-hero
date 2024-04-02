@@ -30,7 +30,7 @@ main {
 table {
   border: 5px solid;
   border-collapse: collapse;
-  width: calc(100vw / 5 - 20px);
+  width: calc(100vw / 3 - 5px);
   align-items: center;
 }
 
