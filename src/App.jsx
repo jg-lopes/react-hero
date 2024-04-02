@@ -2,19 +2,21 @@ import "./App.css";
 import React, { useState, useEffect, useRef } from "react";
 
 function Fret({ active, button = false, playGreen, color }) {
-  const class_name = active ? color : "inactive";
+  const buttonColor = active ? color : "gray";
+
+  const buttonStyle = { backgroundColor: buttonColor };
 
   return (
     <tr>
-      <td className={class_name}>
-        {button && <button onClick={playGreen}>Play!</button>}
+      <td style={buttonStyle}>
+        {button && '==================='}
       </td>
     </tr>
   );
 }
 
-function Screen({ color }) {
-  const [frets, setFrets] = useState([true, false, false, false, false]);
+function Fretboard({ color }) {
+  const [frets, setFrets] = useState(Array(10).fill(false));
   const [score, setScore] = useState(0);
   const [maxScore, setMaxScore] = useState(0);
 
@@ -54,14 +56,14 @@ function Screen({ color }) {
   }
 
   useEffect(() => {
-    const intervalId = setInterval(nextFrame, 250);
+    const intervalId = setInterval(nextFrame, 500);
 
     return () => clearInterval(intervalId);
   }, []);
 
   return (
     <div>
-      <table>
+      <table onClick={playGreen}>
         <tbody>
           {frets.map((fret, index) => (
             <Fret
@@ -88,11 +90,15 @@ function Screen({ color }) {
 export default function App() {
   return (
     <main>
-      <Screen color="green" />
-      <Screen color="red" />
-      <Screen color="yellow" />
-      {/* <Screen color="blue" />
-      <Screen color="orange" /> */}
+      <p>Tap anywhere to play the frets!</p>
+
+      <div class='game'>
+        <Fretboard color="green" />
+        <Fretboard color="red" />
+        {/* <Screen color="yellow" /> */}
+        {/* <Screen color="blue" />
+        <Screen color="orange" /> */}
+      </div>
     </main>
   );
 }

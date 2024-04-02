@@ -1,9 +1,12 @@
 main {
+  background-color: lightgray
+}
+
+.game {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   height: 95vh;
-  background-color: lightgray;
 }
 
 table, tr {
@@ -18,28 +21,4 @@ td  {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.green {
-  background-color: green;
-}
-
-.red {
-  background-color: red;
-}
-
-.yellow {
-  background-color: yellow
-}
-
-.blue {
-  background-color: blue
-}
-
-.orange {
-  background-color: orange
-}
-
-.inactive {
-  background-color: gray;
 }
