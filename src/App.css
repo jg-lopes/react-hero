@@ -1,5 +1,12 @@
 main {
-  background-color: lightgray
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+}
+
+.introtext {
+  display: flex;
+  justify-content: center;
 }
 
 .game {
@@ -9,11 +16,18 @@ main {
   height: 95vh;
 }
 
-table, tr {
+table {
   border: 5px solid;
   border-collapse: collapse;
-  width: 40vh;
+  width: calc(100vw / 5 - 20px);
   align-items: center;
+}
+
+tr {
+  border: 1px solid;
+  border-collapse: collapse;
+  width: 100%;
+  width: calc(100% / 5);
 }
 
 td  {
@@ -21,4 +35,5 @@ td  {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
